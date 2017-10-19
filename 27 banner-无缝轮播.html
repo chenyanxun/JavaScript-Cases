@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<style>
+		.banner {
+			width:1180px;
+			height:350px;
+			margin:100px auto;
+			overflow:hidden;
+			position:relative;
+		}
+		.img {
+			width:1180px;
+			height:300%;
+			position:relative;
+			top:0px;
+			left:0px;
+		}
+		.bar {
+			position:absolute;
+			bottom:10px;
+			right:10px;
+			z-index:99;
+		}
+		.bar li {
+			width:16px;
+			height:16px;
+			background:#000;
+			text-align:center;
+			line-height:100%;
+			border-radius:100%;
+			float:left;
+			margin-left:5px;
+		}
+		.bar li a {
+			color:#fff;
+			font-size:10px;
+		}
+
+		.bar li.active {
+			background:#fff;
+		}
+		.bar li.active a {
+			color:#000;
+		}
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<ul class="img" id="img">
+			<li><img src="img/1.jpg" width="1180" height="350" /></li>
+			<li><img src="img/3.jpg" width="1180" height="350" /></li>
+			<li><img src="img/4.jpg" width="1180" height="350" /></li>
+		</ul>
+		<ul class="bar" id="bar">
+			<li class="active"><a href="###">1</a></li>
+			<li><a href="###">2</a></li>
+			<li><a href="###">3</a></li>
+		</ul>
+	</div>
+	<script>
+		// 图片
+		var imgDom = document.getElementById("img"); // 获取图片盒子
+		var imgLiDoms = imgDom.children; // 获取图片集合
+		var imgLen = imgLiDoms.length; // 获取图片集合长度
+		var imgHeight = imgLiDoms[0].offsetHeight; // 获取图片高度
+
+		// 按钮
+		var barDom = document.getElementById("bar"); // 获取按钮盒子
+		var barLiDoms = barDom.children; // 获取按钮集合
+		var barLen = barLiDoms.length; // 获取按钮集合长度
+
+		for(var i=0;i<barLen;i++){ // 循环
+			barLiDoms[i].index = i; // 获取按钮索引值
+			barLiDoms[i].onmouseover = function(){ // 鼠标滑过按钮
+				clearInterval(timer);
+				for(var i=0;i<barLen;i++){
+					barLiDoms[i].className = ""; // 统一按钮集合样式
+				} 
+				this.className = "active"; // 给当前按钮加样式
+				var j = this.index; // 获取当前按钮索引值
+				var imgT = -j*imgHeight; // 让与按钮对应图片显示，图片盒子应定位的高度top值
+				var currentTop = imgDom.offsetTop;// 获取当前图片盒子的定为高度
+				var timer = setInterval(function(){
+					if(currentTop > imgT){
+						currentTop -= 50;
+						//console.log(imgT +"=="+ currentTop);
+						if(imgT == imgDom.style.top){
+							clearInterval(timer);
+							alert(imgDom.style.top);
+						}else{
+							imgDom.style.top = currentTop + "px";
+						}
+					}else if(currentTop < imgT){
+						currentTop += 50;
+						//console.log(imgT +"=="+ currentTop);
+						if(imgT == imgDom.style.top){
+							clearInterval(timer);
+							alert(imgDom.style.top);
+						}else{
+							imgDom.style.top = currentTop + "px";
+						}
+					}
+				},10);
+			}
+		}
+	</script>
+</body>
+</html>

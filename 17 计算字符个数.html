@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<style>
+		#textarea {
+			display:block;
+			width:700px;
+			height:300px;
+			margin:100px auto 0px;
+			border:1px solid #000;
+			padding:10px;
+		}
+		#text{
+			height:30px;
+			line-height:30px;
+			text-align:center;
+			margin:30px auto;
+			font-size:16px;
+		}
+	</style>
+</head>
+<body>
+	<textarea id="textarea" onkeyup="count();"></textarea>
+	<h3 id="text"></h3>
+	<script>
+		function count(){
+			var textarea = document.getElementById("textarea");
+			var val = textarea.value;
+			var allCount = 0, // 所有字符
+				numCount = 0, // 数字
+				chineseCount = 0, // 中文
+				biaoCount = 0, // 标点符号
+				EngCount = 0; // 大写英文字母
+				engCount = 0; // 小写英文字母
+			for(var i=0;i<val.length;i++){
+				if(val.charCodeAt(i)>=48 && val.charCodeAt(i)<=57){// 计算数字个数
+					numCount++;
+				}else if(val.charCodeAt(i)>=65 && val.charCodeAt(i)<=90){// 计算大写英文字母个数
+					EngCount++;
+				}else if(val.charCodeAt(i)>=97 && val.charCodeAt(i)<=122){// 计算小写英文字母个数
+					engCount++;
+				}else if(/^[\u2E80-\u9FFF]+$/.test(val.charAt(i))){// 计算中文个数
+					chineseCount++;
+				}else{// 计算标点符号个数
+					biaoCount++;
+				}
+			}
+			var textDom = document.getElementById("text");
+			textDom.innerHTML = "当前内容中：字符总长度为【"+val.length+"】个，数字为【"+numCount+"】个，中文为【"+chineseCount+"】个，标点符号为【"+biaoCount+"】个，大写英文字母为【"+EngCount+"】个，小写英文字母为【"+engCount+"】个";
+		}
+		
+	</script>
+</body>
+</html>

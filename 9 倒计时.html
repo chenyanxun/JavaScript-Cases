@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<style>
+		.box,
+		.time {
+			font-size:30px;
+			line-height:40px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box"></div>
+	<div class="time" id="time"></div>
+	<script>
+		function time(){
+			var date = new Date();
+			var year = date.getFullYear();
+			var month = date.getMonth()+1;
+			if(month<10){
+				month = "0" + month;
+			}
+			var day = date.getDate();
+			var hh = date.getHours();
+			if(hh<10){
+				hh = "0" + hh;
+			}
+			var mm = date.getMinutes();
+			if(mm<10){
+				mm = "0" + mm;
+			}
+			var ss = date.getSeconds();
+			if(ss<10){
+				ss = "0" + ss;
+			}
+			function week(){
+				var ww = date.getDay();
+				switch(ww){
+					case 1 : return "星期一";
+					case 2 : return "星期二";
+					case 3 : return "星期三";
+					case 4 : return "星期四";
+					case 5 : return "星期五";
+					case 6 : return "星期六";
+					case 0 : return "星期日";
+					default: break;
+				}
+			}
+			var week = week();
+			var box = document.getElementById("box");
+			box.innerHTML ="现在时间："+ year +"年"+ month +"月"+ day +"日"+" "+ hh +":"+ mm +":"+ ss +" "+ week;
+		}
+		setInterval(time,1000);
+		
+		
+		setInterval(time2,1000);
+		function time2(){
+			var start = new Date();
+			var end = new Date(start.getFullYear()+1,0,1);
+			var timer = (end.getTime() - start.getTime())/1000;
+			var day = Math.floor(timer/60/60/24);
+			var hour = Math.floor(timer/60/60%24);
+			var minu = Math.floor(timer/60%60);
+			var second = Math.floor(timer%60);
+			var data = document.getElementById("time");
+			data.innerHTML = "距离"+(start.getFullYear()+1)+"年元旦还有"+ day +"天"+ hour +"小时"+ minu +"分"+ second +"秒"; 
+		}
+	</script>
+</body>
+</html>

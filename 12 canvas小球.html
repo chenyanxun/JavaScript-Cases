@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<style>
+		
+	</style>
+</head>
+<body>
+	<canvas id="canvas" style="background:#111;"></canvas>
+	<script>
+		window.onload = function(){
+			// 获取画布
+			var canvas = document.getElementById("canvas");
+			// 定义画布的大小
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+			var cWidth =  canvas.width;
+			var cHeight = canvas.height;
+			// 获取画布上下文
+			var context = canvas.getContext("2d");
+			
+			var balls = [];
+			var ballNum = 100;
+			var r = 0.2;
+			for(var i=1;i<ballNum;i++){
+				// 初始化
+				var ball = new Ball();
+				ball.x = cWidth/2;
+				ball.y = cHeight;
+				ball.vy = Math.random() * -10-10;
+				ball.vx = Math.random() *2 - 1;
+				ball.radius = rangeRandom(5,10);
+				balls.push(ball);
+			}
+
+			function drawCanvas(ball){
+				ball.y += ball.vy;
+				ball.x += ball.vx;
+				ball.vy += r;
+				ball.color = getRgb();
+				// 边界控制
+				if(ball.y - ball.radius > cHeight || ball.y + ball.radius < 0 || ball.x - ball.radius > cWidth || ball.x + ball.radius < 0){
+					// 重新初始化
+					ball.x = cWidth/2; //喷发点横坐标
+					ball.y = cHeight; // 喷发点纵坐标
+					ball.vy = Math.random() * -10-10; // 控制喷发上下方向
+					ball.vx = Math.random() *2 -5;// 控制喷发左右方向
+				}
+				//调用小球对象通过prototype扩展的方法
+				ball.draw(context);
+			}
+
+			
+			setInterval(function(){
+				// 每次执行清除一次画布
+				context.clearRect(0,0,cWidth,cHeight);
+				// 一次性绘制 ，需要定时器不断改变
+				balls.forEach(function(obj){
+					// 调用绘制方法
+					drawCanvas(obj);
+				});
+			},30);
+			
+		}
+
+		
+		// 小球对象
+		function Ball(radius){
+			this.radius = radius;
+			this.x = 0;
+			this.y = 0;
+			this.vx = 0;
+			this.vy = 0;
+			this.color = "#f00";
+		}
+
+		// 绘制小球  扩展方法
+		Ball.prototype.draw = function(context){
+			context.beginPath();
+			context.arc(this.x,this.y,this.radius,0,2*Math.PI);
+			context.fillStyle = this.color;
+			context.closePath();
+			context.fill();
+		}
+		// 随机范围
+		function rangeRandom(start,end){
+			return Math.floor(Math.random()*(end-start+1)+start);
+		}
+		// 随机范围
+		function tRandom(start){
+			return Math.floor(Math.random()*start);
+		}
+		// 随机颜色
+		function getRgb(){
+			//0-255
+			var r = tRandom(256);
+			var g = tRandom(256);
+			var b = tRandom(256);
+			return "rgb("+r+","+g+","+b+")";
+		}
+		// 随机颜色
+		function getRgb16(){
+			//0-255
+			var r = tRandom(256).toString(16);
+			var g = tRandom(256).toString(16);
+			var b = tRandom(256).toString(16);
+			if(r.length<2)r=r+""+r;
+			if(g.length<2)g=g+""+g;
+			if(b.length<2)b=b+""+b;
+			return "#"+r+""+g+""+b;
+		}
+	</script>
+</body>
+</html>

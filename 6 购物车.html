@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<style>
+		body {
+			background:#f1f1f1;
+		}
+		.header {
+			height:100px;
+			border-bottom:2px solid #1D9E74;
+			background:#fff;
+		}
+
+		.header .header_content {
+			width:1240px;
+			margin:0 auto;
+		}
+
+		.header .header_title {
+			line-height:100px;
+			font-size:28px;
+		}
+
+		.header .header_user {
+			line-height:100px;
+		}
+
+		.info {
+			clear:both;
+			padding-top:38px;
+			padding:bottom:38px;
+		}
+
+		.info .info_content {
+			width:1240px;
+			margin:0 auto;
+			background:#fff;
+			overflow:hidden;
+		}
+		.info .info_top {
+			height:70px;
+			line-height:70px;
+		}
+		.info .info_content li {
+			float:left;
+		}
+
+		.info .info_content li.list1 {
+			width:110px;
+		}
+		.info .info_content li.list1 a {
+			display:inline-block;
+			width:18px;
+			height:18px;
+			line-height:18px;
+			text-align:center;
+			border:1px solid #e0e0e0;
+			margin:0px 20px;
+			font-size:20px;
+			vertical-align:middle;
+			
+		}
+		.info .info_content li.list1 a.click {
+			background:#1D9E74;
+			color:#fff;
+		}
+		.info .info_content li.list2 {
+			width:120px;
+		}
+		.info .info_content li.list3 {
+			width:380px;
+		}
+		.info .info_content li.list3 h3 {
+			font-size:20px;
+			font-weight:normal;
+			line-height:1.5;
+		}
+		.info .info_content li.list3 p {
+			line-height:1.5;
+			color:#999;
+			font-size:12px;
+		}
+		.info .info_content li.list4 {
+			width:160px;
+			text-align:center;
+		}
+		.info .info_content li.list4 strong {
+			font-size:16px;
+		}
+		.info .info_content li.list5 {
+			width:150px;
+			text-align:center;
+		}
+		.info .info_content li.list5 a {
+			display:inline-block;
+			width:24px;
+			height:30px;
+			line-height:30px;
+			border:1px solid #e0e0e0;
+		}
+		.info .info_content li.list5 a.minu {
+			border-right:none;
+		}
+		.info .info_content li.list5 a.plus {
+			border-left:none;
+		}
+		.info .info_content li.list5 .number {
+			height:30px;
+			width:100px;
+			line-height:30px;
+			border:none;
+			border-top:1px solid #e0e0e0;
+			border-bottom:1px solid #e0e0e0;
+			text-align:center;
+		}
+		.info .info_content li.list5 .mt {
+			margin-top:20px;
+		}
+		.info .info_content li.list6 {
+			width:200px;
+			text-align:center;
+		}
+		.info .info_content li.list6 strong {
+			font-size:16px;
+			color:#1D9E74;
+		}
+		.info .info_content li.list7 {
+			width:110px;
+		}
+		.info .info_content li.list7 a {
+			padding-left: 7px;
+			color: red;
+			font-size: 20px;
+		}
+		.info .shoplist {
+			clear:both;
+			height:auto;
+			padding:15px 0px;
+			border-top:1px solid #e0e0e0;
+		}
+		
+		.info .shoplist .list {
+			height:70px;
+			line-height:70px;
+		}
+
+		.sum {
+			height:50px;
+			line-height:50px;
+		}
+		.sum .sum_content {
+			width:200px;
+			text-align:center;
+			background:#fff;
+			margin:30px auto;
+		}
+		.sum .sum_content strong {
+			color:#1D9E74;
+			font-size:16px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<div class="header_content">
+			<div class="header_title fl">我的购物车</div>
+			<div class="header_user fr">
+				<a href="javascript:void(0);">keke</a>
+			</div>
+		</div>
+	</div>
+	<div class="info">
+		<div class="info_content">
+			<div class="info_top">
+				<ul>
+					<li class="list1"><a href="javascript:void(0)" class="click">√</a>全选</li>
+					<li class="list2">&nbsp;</li>
+					<li class="list3">商品名称</li>
+					<li class="list4">单价</li>
+					<li class="list5">数量</li>
+					<li class="list6">小计</li>
+					<li class="list7">操作</li>
+				</ul>
+			</div>
+			<div class="shoplist shoplistMoney">
+				<div class="list">
+					<ul>
+						<li class="list1"><a href="javascript:void(0)" class="click">√</a></li>
+						<li class="list2"><a href="###"><img src="http://i1.mifile.cn/a1/T1sRhTBsYT1RXrhCrK!80x80.jpg" width="80" height="80" /></a></li>
+						<li class="list3">
+							<h3><a href="###"> SanDisk 16GB存储卡（Class4） 黑色</a> </h3>
+							<p>适配机型：小米平板 / 1 / 1S, 红米1S/红米, 红米Note/增强版, 红米手机2, 红米手机2A </p>
+						</li>
+						<li class="list4"><strong><i class="danjia">2</i>元</strong></li>
+						<li class="list5">
+							<div class="mt">
+								<a href="javascript:void(0)" class="fl minu">-</a>
+								<input type="text" class="number fl" value="1"/>
+								<a href="javascript:void(0);" class="fl plus">+</a>
+							</div>
+						</li>
+						<li class="list6">
+							<strong><i class="price">2</i>元</strong>
+						</li>
+						<li class="list7">
+							<a href="javascript:void(0);" class="del">&times;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="shoplist shoplistMoney">
+				<div class="list">
+					<ul>
+						<li class="list1"><a href="javascript:void(0)" class="click">√</a></li>
+						<li class="list2"><a href="###"><img src="http://i1.mifile.cn/a1/T1sRhTBsYT1RXrhCrK!80x80.jpg" width="80" height="80" /></a></li>
+						<li class="list3">
+							<h3> <a href="###">SanDisk 16GB存储卡（Class4） 黑色</a> </h3>
+							<p>适配机型：小米平板 / 1 / 1S, 红米1S/红米, 红米Note/增强版, 红米手机2, 红米手机2A </p>
+						</li>
+						<li class="list4"><strong><i class="danjia">3</i>元</strong></li>
+						<li class="list5">
+							<div class="mt">
+								<a href="javascript:void(0)" class="fl minu">-</a>
+								<input type="text" class="number fl" value="1" />
+								<a href="javascript:void(0);" class="fl plus">+</a>
+							</div>
+						</li>
+						<li class="list6">
+							<strong><i class="price">3</i>元</strong>
+						</li>
+						<li class="list7">
+							<a href="javascript:void(0);" class="del">&times;</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="sum">
+		<div class="sum_content">
+			总计：<strong><i class="allMoney">5</i>元</strong>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			// 点击加号
+			$(".list5").find(".plus").click(function(){
+				var $this = $(this);
+				var val = $this.parent().find(".number").val();
+				val++;
+				$this.parent().find(".number").val(val);
+				var danjia = $this.parents("li").prev().find(".danjia").text();
+				price = val * danjia;
+				$this.parents("li").next().find(".price").text(price);
+				allMoney();
+			});
+			// 点击减号
+			$(".list5").find(".minu").click(function(){
+				var $this = $(this);
+				var val = $this.parent().find(".number").val();
+				if(val>1){
+					val--;
+				}else if(val<=1){
+					val=1;
+				}
+				$this.parent().find(".number").val(val);
+				var danjia = $this.parents("li").prev().find(".danjia").text();
+				price = val * danjia;
+				$this.parents("li").next().find(".price").text(price);
+				allMoney();
+			});
+			// 删除事件
+			$(".list7").find(".del").click(function(){
+				var $this = $(this);
+				$this.parents(".shoplist").remove();
+				allMoney();
+			});
+			// 选择事件
+			$(".list1").click(function(){
+				var $this = $(this);
+				var mark = $this.find("a").hasClass("click");
+				if(mark){
+					$this.find("a").removeClass("click");
+					$this.parents(".list").parent().removeClass("shoplistMoney");
+				}else{
+					$this.find("a").addClass("click");
+					$this.parents(".list").parent().addClass("shoplistMoney");
+				}
+				allMoney();
+			});
+		});
+		// 总和
+		function allMoney(){
+			var length = $(".info_content").find(".shoplistMoney").length;
+			var total = 0;
+			for(var i=0;i<length;i++){
+				var money = $(".info_content").find(".shoplistMoney").eq(i).find(".price").html() * 1;
+				//alert(money);
+				total += money;
+			}
+			$(".sum").find(".allMoney").html(total);
+		}
+	</script>
+</body>
+</html>

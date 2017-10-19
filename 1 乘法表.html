@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>乘法表</title>	
+	<link type="text/css" href="css/common.css" rel="stylesheet" />
+	<style type="text/css">
+		body{background:#000;}
+		p{width:300px;height:30px;margin:10px auto;background:#fff;}
+		input{border:none;float:left;}
+		input[type="text"]{width:200px;height:30px;text-indent:10px;font-size:16px;line-height:30px;font-weight:normal;}
+		input[type="button"]{width:100px;height:30px;cursor:pointer;}
+		table{margin:10px auto;}
+		td{width:80px;height:30px;color:#fff;border:1px solid #fff;text-align:center;}
+	</style>
+</head>
+<body>
+	<p>
+		<input type="text" value="9" id="input" />
+		<input type="button" value="生成乘法表" onclick="show();" />
+	</p>
+	<table id="table"></table>
+	<script type="text/javascript">	
+		function show(){
+			var table = document.getElementById("table");
+			var inputDom = document.getElementById("input");
+			var val = inputDom.value;
+			if(!val){
+				inputDom.focus();
+				alert("请输入一个值");
+				return;
+			}
+			if(isNaN(val)){
+				inputDom.focus();
+				alert("请输入一个数字");
+				return;
+			};
+			if(val>9){
+				inputDom.focus();
+				alert("请输入一个不大于9的数");
+				return;
+			}
+			var html = "";
+			for(var i=1;i<=val;i++){
+				html += "<tr>";
+				for(var j=1;j<=i;j++){
+					html += "<td>"+j+"*"+i+"="+(j*i)+"</td>";
+				};
+				html += "</tr>";
+			};
+			table.innerHTML = html;
+		}
+	</script>
+</body>
+</html>

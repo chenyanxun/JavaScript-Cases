@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>Document</title>
+	<link type="text/css" href="css/common.css" rel="stylesheet" />
+	<style>
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		.box {
+			width:100px;
+			height:100px;
+			background:red;
+			position:absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box"></div>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById("box");
+			var mark = false;
+			box.onmousedown = function(e){
+				//拿到元素所在位置
+				var stop = this.offsetTop;
+				var sleft = this.offsetLeft;
+				//获取元素可移动的最大范围
+				var maxH = window.innerHeight - box.offsetHeight;
+				var maxW = window.innerWidth - box.offsetWidth;
+				//获取按下鼠标时的光标位置
+				var pos = getXY(e);
+				mark = true;
+				document.onmousemove = function(e){
+					//获取松开鼠标时的光标位置
+					var pos2 = getXY(e);
+					//元素移动后的位置
+					var ntop = pos2.y - pos.y + stop;
+					var nleft = pos2.x - pos.x + sleft;
+					//边界判断
+					if(nleft<=0)nleft = 0;
+					if(ntop<=0)ntop = 0;
+					if(nleft>=maxW)nleft = maxW;
+					if(ntop>=maxH)ntop = maxH;
+					//改变位置
+					box.style.left = nleft+"px";
+					box.style.top = ntop+"px";
+				}
+				document.onmouseup = function(){
+					this.onmousemove = null;
+					this.onmouseup = null;
+					mark = false;
+				}
+			}
+		}
+
+
+
+
+
+		// 获取鼠标坐标点 
+		function getXY(e){
+			var e = e || window.event; // 兼容IE和非IE浏览器，在ie浏览器中,window.event是全局变量,在非ie中，就需要自己传入一个参数来获取event
+			var x = 0,y = 0;
+			if(e.pageX){ // pageX pageY,如果页面没有滚动条出现，则pageX pageY 与 clientX clientY相同，如果出现滚动条 则 pageY = clientY + scrollTop;
+				x = e.pageX;
+				y = e.pageY;
+			}else{
+				// 获取 scrollTop scrollLeft 
+				var scrollTop = 0,scrollLeft = 0; // 获取scrollTop scrollLeft，浏览器兼容
+				// ie678
+				if(document.documentElement){
+					scrollTop = document.documentElement.scrollTop;
+					scrollLeft = document.documentElement.scrollLeft;
+				}else{ // IE9+ chrome
+					scrollTop = document.body.scrollTop;
+					scrollLeft = document.body.scrollLeft;
+				}
+				x = e.clientX + scrollLeft;
+				y = e.clientY + scrollTop;
+			}
+
+			return {x:x,y:y};
+		}
+	</script>
+</body>
+</html>

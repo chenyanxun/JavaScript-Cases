@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+</head>
+<body>
+	<script>
+		/**
+		 * i 忽略大小写，不添加默认大小写敏感
+		 * g 代表globle，全文搜索，不添加的话搜索到第一个匹配停止
+		 * m 多行搜索
+		 * 
+		 * [] 表示一个类
+		 * ^  表示反向类，取反的意思
+		 * [a-zA-z] 范围类
+		 */
+		var reg = /\bis\b/g;// \b 匹配单词边界  
+		// alert("He is a boy. This is a dog. Where is she?".replace(reg,"IS")); 
+		var reg = new RegExp("\\bis\\b","ig"); // 正则表达式 函数形式
+		//alert("He Is a boy. This is a dog. Where is she?".replace(reg,"0")); 
+		//alert("a1b2c3d4".replace(/[a-z]/g,"X"));
+		//alert("2016-09-10".replace(/[0-9-]/g,"A"));
+		//alert("a1b2c3d4".replace(/([a-z]\d){3}/g, 'X'));
+		alert("2016-10-09".replace(/(\d{4})-(\d{2})-(\d{2})/,"$3-$2-$1"));
+	</script>
+</body>
+</html>

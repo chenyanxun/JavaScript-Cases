@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<style>
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		.box {
+			width:100px;
+			height:100px;
+			background:red;
+			position:absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box"></div>
+	<script>
+		window.onload = function(){
+			var boxDom = document.getElementById("box");
+			boxDom.onclick = function(){
+				move(this);
+			};
+		};
+		var speedy = 0;
+		var speedx = 10;
+		var timer = null;
+		function move(dom){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				speedy += 5;
+				var y = dom.offsetTop + speedy;
+				var x = dom.offsetLeft + speedx;
+				if(y > window.innerHeight - dom.offsetHeight){
+					y = window.innerHeight - dom.offsetHeight;
+					speedy *= -0.625;
+					speedx *= 0.625;
+				}
+				console.log(speedy +"=="+y+"==="+speedx);
+				if(speedx<= 0.01){
+					clearInterval(timer);
+					dom.style.top = window.innerHeight - dom.offsetHeight + "px";
+				}else{
+					dom.style.top = y + "px";
+					dom.style.left = x + "px";
+				}
+			},30);
+		};
+	</script>
+</body>
+</html>

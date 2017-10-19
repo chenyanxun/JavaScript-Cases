@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<style>
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		body {
+			font-family:"微软雅黑";
+		}
+		#box {
+			width:1002px;
+			height:auto;
+			overflow:hidden;
+			margin:100px auto;
+		}
+		ul li {
+			list-style:none;
+			float:left;
+			margin:0px 10px 10px 0px;
+			width:310px;
+			height:320px;
+			border:2px solid #000;
+			padding:5px;
+			overflow:hidden;
+		}
+		#box img {
+			display:block;
+			width:310px;
+			height:200px;
+		}
+
+		.yy {
+			width:100%;
+			height:100%;
+			position:fixed;
+			top:0;
+			left:0;
+			background:#000;
+			opacity:.5;
+			filter:alpha(opacity=50);
+			z-index:1;
+		}
+
+		.dia_content {
+			width:1200px;
+			height:600px;
+			overflow:hidden;
+			position:fixed;
+			top:50%;
+			left:50%;
+			margin-left:-600px;
+			margin-top:-300px;
+			z-index:2;
+		}
+		.dia_content .img {
+			width:880px;
+			height:580px;
+			background:#fff;
+			float:left;
+			border:10px solid #000;
+			position:relative;
+		}
+		.dia_content .img img {
+			display:block;
+			position:absolute;
+			top:50%;
+			left:50%;
+			width:100%;
+			margin-left:-440px;
+		}
+		.dia_content .text {
+			width:280px;
+			height:580px;
+			padding:10px;
+			background:#fff;
+			float:left;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<ul id="ul">
+			<li>
+				<img src="img/1.jpg" />
+				<p>我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张我是第一张</p>
+			</li>
+			<li>
+				<img src="img/3.jpg" />
+				<p>我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张我是第二张</p>
+			</li>
+			<li><img src="img/4.jpg" />
+				<p>我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张我是第三张</p>
+			</li>
+			<li><img src="img/7.jpg" />
+				<p>我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张我是第四张</p>
+			</li>
+			<li><img src="img/3.jpg" />
+				<p>我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张我是第五张</p>
+			</li>
+			<li><img src="img/6.jpg" />
+				<p>我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章我是第六章</p>
+			</li>
+		</ul>
+	</div>
+
+	<div id="dialog" style="display:none;">
+		<div class="yy" id="yy"></div>
+		<div class="dia_content">
+			<div class="img">
+				<img src="img/1.jpg" id="showImg" />
+			</div>
+			<div class="text" id="text">
+				健身房加快速度均分分数多家分店手机开发开始的减肥看电视了含税单价福建省地方绝对是福建省电话费解决速度快九分裤是附近的设计费金士顿束带结发或减少的
+			</div>
+		</div>
+	</div>
+	<script>
+		window.onload = function(){
+			var ulDom = document.getElementById("ul");
+			var len = ulDom.children.length;
+			var diaDom = document.getElementById("dialog");
+			var yyDom = document.getElementById("yy");
+			var showImgDom = document.getElementById("showImg");
+			var textDom = document.getElementById("text");
+			for(var i=0;i<len;i++){
+				ulDom.children[i].getElementsByTagName("img")[0].onclick = function(){
+					var src = this.src;
+					var text = this.nextElementSibling.innerHTML;
+					diaDom.style.display = "block";
+					showImgDom.src = src;
+					textDom.innerHTML = text;
+					showImgDom.style.marginTop = -(showImgDom.offsetHeight/2) + "px";
+				};
+			};
+			yyDom.onclick = function(){
+				this.parentElement.style.display = "none";
+			};
+		};
+	</script>
+</body>
+</html>

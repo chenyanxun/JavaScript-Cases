@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<style>
+		.box {
+			width:500px;
+			height:300px;
+			margin:100px auto;
+		}
+		.item{
+			width:100%;
+			height:auto;
+			overflow:hidden;
+			border:1px solid #000;
+		}
+		.item li {
+			width:100px;
+			height:30px;
+			line-height:30px;
+			text-align:center;
+			float:left;
+			border-right:1px solid #000;
+		}
+		.item li a {
+			display:block;
+		}
+		.item li.on a {
+			background:red;
+			color:#fff;
+		}
+		.show_item {
+			width:100%;
+			height:auto;
+			overflow:hidden;
+			clear:both;
+			border:1px solid #000;
+			border-top:none;
+		}
+		.show_item .content {
+			width:100%;
+			height:400px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="item">
+			<li  class="on"><a href="###">选项一</a></li>
+			<li><a href="###">选项二</a></li>
+			<li><a href="###">选项三</a></li>
+		</ul>
+		<div class="show_item">
+			<div class="content">选项一选项一选项一</div>
+			<div class="content" style="display:none;">选项二选项二选项二选项二</div>
+			<div class="content" style="display:none;">选项三选项三选项三</div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			$(".item li").click(function(){
+				var $this = $(this);
+				var index = $this.index();
+				$this.addClass("on").siblings().removeClass("on");
+				$(".show_item").find(".content").eq(index).show().siblings().hide();
+			});
+		})
+	</script>
+</body>
+</html>

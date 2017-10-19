@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>Document</title>
+	<link type="text/css" href="css/common.css" rel="stylesheet" />
+	<style>
+		.box {
+			width:100px;
+			height:100px;
+			background:red;
+			position:absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box"></div>
+	<script>
+		var box = document.getElementById("box");
+		box.onmousedown = function(e){
+			var e = e || window.event;
+			var winW = window.innerWidth;
+			var winH = window.innerHeight;
+			var maxW = winW - box.offsetWidth;
+			var maxH = winH - box.offsetHeight;
+			var x = e.clientX;
+			var y = e.clientY;
+			var boxX = this.offsetLeft;
+			var boxY = this.offsetTop;
+			document.onmousemove = function(e){
+				var xx = e.clientX;
+				var yy = e.clientY;
+				var l = xx - x + boxX;
+				var t = yy - y + boxY;
+				if(l <= 0){
+					box.style.left = 0;
+				}else if(l >= maxW){
+					box.style.left = maxW;
+				}else{
+					box.style.left = l + "px";
+				}
+				if(t <= 0){
+					box.style.top = 0;
+				}else if(t >= maxH){
+					box.style.top = maxH;
+				}else{
+					box.style.top = t + "px";
+				}
+			}
+			document.onmouseup = function(){
+				this.onmousemove = null;
+				this.onmouseup = null;
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<style>
+		.banner {
+			width:1180px;
+			height:350px;
+			margin:100px auto;
+			overflow:hidden;
+			position:relative;
+		}
+		.banner ul.img li {
+			position:absolute;
+			top:0px;
+			left:0px;
+		}
+		.banner ul.bar {
+			position:absolute;
+			bottom:10px;
+			right:10px;
+			z-index:99;
+		}
+
+		.banner ul.bar li {
+			width:16px;
+			height:16px;
+			float:left;
+			margin-left:5px;
+			text-align:center;
+			line-height:100%;
+			border-radius:100%;
+			background:#000;
+		}
+		.banner ul.bar li a {
+			color:#fff;
+			font-size:12px;
+		}
+
+		.banner ul.bar li.on {
+			background:#fff;
+		}
+		.banner ul.bar li.on a {
+			color:#000;
+		}
+	</style>
+</head>
+<body>
+	<div class="banner">
+		<ul class="img" id="img">
+			<li><img src="img/1.jpg" width="1180" height="350"/></li>
+			<li><img src="img/3.jpg" width="1180" height="350"/></li>
+			<li><img src="img/4.jpg" width="1180" height="350"/></li>
+		</ul>
+		<ul class="bar" id="bar">
+			<li><a href="###">1</a></li>
+			<li><a href="###">2</a></li>
+			<li class="on"><a href="###">3</a></li>
+		</ul>
+	</div>
+
+	<script>
+		window.onload = function(){
+			// 图片
+			var imgDom = document.getElementById("img"); // 获取图片盒子
+			var imgLiDoms = imgDom.children; // 所有图片集合
+			var imgLen = imgLiDoms.lenght; // 图片集合长度
+			// 控制按钮
+			var barDom = document.getElementById("bar"); // 获取控制按钮盒子
+			var barLiDoms = barDom.getElementsByTagName("li"); // 所有按钮集合
+			var barLen = barLiDoms.length; // 按钮集合长度
+			// 循环按钮
+			for(var i=0;i<barLen;i++){
+				barLiDoms[i].index = i; // 获取当前按钮索引
+				barLiDoms[i].onmouseover = function(){// 鼠标放在按钮上
+					for(var i=0;i<barLen;i++){ // 所有按钮统一样式  图片隐藏
+						barLiDoms[i].className = ""; 
+						imgLiDoms[i].style.display = "none";
+					}
+					this.className = "on"; // 给当前按钮设置样式
+					imgLiDoms[this.index].style.display = "block"; // 让按钮对应的图片显现
+				}
+			}
+		}
+	</script>
+</body>
+</html>

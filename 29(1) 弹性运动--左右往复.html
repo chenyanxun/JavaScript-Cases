@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<style>
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		.box {
+			width:100px;
+			height:100px;
+			background:red;
+			position:absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="box"></div>
+	<script>
+		window.onload = function(){
+			var boxDom = document.getElementById("box");
+			boxDom.onclick = function(){
+				move(this);
+			};
+			
+		};
+		var speed = 0;
+		var timer = null;
+		function move(dom){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				var t = window.innerWidth - dom.offsetWidth;
+				if((t/2-100) > dom.offsetLeft){
+					speed += 5;	
+				}else{
+					speed -= 5;
+				}
+				dom.style.left = dom.offsetLeft + speed +"px";
+			},30);
+		}
+		
+	</script>
+</body>
+</html>

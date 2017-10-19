@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	<style>
+		.box {
+			width:250px;
+			padding:10px;
+			height:auto;
+			overflow:hidden;
+		}
+		.time {
+			width:100%;
+			height:50px;
+			line-height:50px;
+			border:1px solid red;
+			margin-top:10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="time" time="2016/10/1,00:00:00"></div>
+		<div class="time" time="2016/11/1,00:00:00"></div>
+		<div class="time" time="2016/12/1,00:00:00"></div>
+		<div class="time" time="2017/1/1,00:00:00"></div>
+	</div>
+
+	<script>
+		window.onload = function(){
+			var boxDom = document.getElementsByClassName("box")[0];
+			var timeDoms = boxDom.getElementsByClassName("time");
+			var len = timeDoms.length;
+			setInterval(function(){
+				for(var i=0;i<len;i++){
+					var start = new Date();
+					var time = timeDoms[i].getAttribute("time");
+					var end = new Date(time);
+					runTime(start,end,timeDoms[i],function(){
+						timeDoms[i].style.background = "red";
+						timeDoms[i].style.color = "#fff";
+					});
+				}
+			},1000);
+		}
+
+		function runTime(start,end,dom,callback){
+			var startTime = start.getTime();
+			var endTime = end.getTime();
+			var time = (endTime - startTime)/1000;
+			var day = Math.floor(time/60/60/24);
+			var hour = Math.floor(time/60/60%24);
+			var sec = Math.floor(time/60%60);
+			var mm = Math.floor(time%60);
+			if(callback){
+				callback.call(dom,true);
+			}
+			dom.innerHTML = "还有"+day+"天"+hour+"小时"+sec+"分钟"+mm+"秒";
+		}
+		
+		
+	</script>
+</body>
+</html>

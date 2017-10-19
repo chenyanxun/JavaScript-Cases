@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<style>
+		* {
+			margin:0px;
+			padding:0px;
+		}
+		ul li {
+			list-style:none;
+		}
+		img {
+			border:none;
+		}
+		a {
+			text-decoration:none;
+		}
+		.box {
+			width:760px;
+			height:300px;
+			overflow:hidden;
+			margin:100px auto;
+			position:relative;
+		}
+		.box .imgs {
+			width:300%;
+			position:absolute;
+			top:0px;
+		}
+		.box .imgs li {
+			width:760px;
+			height:300px;
+			float:left;
+		}
+		.box .btns {
+			width:80px;
+			height:16px;
+			padding:3px 5px;
+			border-radius:16px;
+			background:rgba(0,0,0,.4);
+			position:absolute;
+			bottom:20px;
+			left:50%;
+			margin-left:-40px;
+			z-index:4;
+		}
+		.box .btns li {
+			width:16px;
+			height:16px;
+			background:#fff;
+			float:left;
+			border-radius:100%;
+			text-align:center;
+			line-height:16px;
+			margin-left:8px;
+			cursor:pointer;
+		}
+		.box .btns li.on {
+			background:orange;
+			color:#fff;
+		}
+		.box .prev,.box .next {
+			display:block;
+			width:40px;
+			height:50px;
+			background:rgba(0,0,0,.5);
+			text-align:center;
+			line-height:50px;
+			font-size:30px;
+			color:#fff;
+			position:absolute;
+			top:130px;
+			z-index:4;
+		}
+		.box .prev {
+			left:0px;
+		}
+		.box .next {
+			right:0px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="imgs">
+			<li><a href="###"><img src="img/banner-1.jpg" alt="" width="" height="" /></a></li>
+			<li><a href="###"><img src="img/banner-2.jpg" alt="" width="" height="" /></a></li>
+			<li><a href="###"><img src="img/banner-3.jpg" alt="" width="" height="" /></a></li>
+		</ul>
+		<ul class="btns">
+			<li class="on">1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+		<a href="###" class="prev">&lt;</a>
+		<a href="###" class="next">&gt;</a>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+	<script>
+		$(function(){
+			var width = $(".imgs").find("li").width();
+			var len = $(".btns").find("li").length;
+			// 下一页
+			$(".next").click(function(){
+				$(".imgs").stop(true,true).animate({"left":-width+"px"},1000,function(){
+					$first = $(".imgs").children().first();
+					$(".imgs").append($first);
+					$(".imgs").css({"left":0});
+				});
+				var index = $(".btns").find("li.on").index();
+				index++;
+				if(index >= len){
+					index = 0;
+				}
+				$(".btns").find("li").eq(index).addClass("on").siblings().removeClass("on");
+			}).mouseover(function(){
+				clearInterval(timer);
+			}).mouseout(function(){
+				move();
+			});
+
+			// 上一页
+			$(".prev").click(function(){
+				$last = $(".imgs").children().last();
+				$(".imgs").prepend($last);
+				$(".imgs").css({"left":-width + "px"});
+				$(".imgs").stop(true,true).animate({"left":0},1000);
+				var index = $(".btns").find("li.on").index();
+				index--;
+				if(index < 0){
+					index = len-1;
+				}
+				$(".btns").find("li").eq(index).addClass("on").siblings().removeClass("on");
+			}).mouseover(function(){
+				clearInterval(timer);
+			}).mouseout(function(){
+				move();
+			});
+
+			// 定时
+			var timer = null;
+			function move(){
+				timer = setInterval(function(){
+					$(".next").trigger("click");
+				},3000);
+			};
+			move();
+		});
+	</script>
+</body>
+</html>

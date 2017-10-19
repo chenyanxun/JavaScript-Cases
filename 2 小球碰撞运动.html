@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>Document</title>
+	<link type="text/css" href="css/common.css" rel="stylesheet" />
+	<style type="text/css">
+		.ball{width:100px;height:100px;background:red;border-radius:50%;position:absolute;top:0;left:0;}
+	</style>
+</head>
+<body>
+	<div id="ball" class="ball"></div>
+	<script type="text/javascript">
+		var speed = 10;
+		var x = 0;
+		var y = 0;
+		var xstep = speed;
+		var ystep = speed;
+		function move(){		
+			var ball = document.getElementById("ball");
+			var maxHeight = window.innerHeight - ball.offsetHeight;
+			var maxWidth = window.innerWidth - ball.offsetWidth;
+			x = x + xstep;
+			y = y + ystep;
+			if(y>=maxHeight){
+				ystep = -speed;
+				y = maxHeight;
+			}
+			if(y<0){
+				ystep = speed;
+				y = 0;
+			}
+			if(x>=maxWidth){
+				xstep = -speed;
+				x = maxWidth;
+			}
+			if(x<0){
+				xstep = speed;
+				x = 0;
+			}
+			ball.style.top = y + "px";
+			ball.style.left = x + "px";
+		};
+		setInterval(function(){
+			move();
+		},1000/50);
+	</script>
+</body>
+</html>

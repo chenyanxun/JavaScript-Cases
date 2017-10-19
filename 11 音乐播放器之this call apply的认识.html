@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<title>Document</title>
+	<meta name="Keywords" content="" />
+	<meta name="Description" content="" />
+	<link type="text/css" rel="stylesheet" href="css/common.css" />
+	 <style>
+		.prograss{background:#fff;border:1px solid green;height:30px;width:640px;position:relative;}
+		#percent{position:absolute;top:0;left:0;height:100%;width:0%;background:green}
+	</style>
+</head>
+<body>
+	<a href="###" onclick="playstop(this);">播放</a>
+	<a href="###" onclick="tzAudio.prev();">上一首</a>
+	<a href="###" onclick="tzAudio.next();">下一首</a>
+	<span id="time">00:00</span>
+	<span id="stime">00:00</span>
+	<span id="sstime">00:00</span>
+	<div class="prograss">
+		<div id="percent"></div>	
+	</div>
+	<script>
+		var tzAudio = {
+			// 音乐对象
+			audioDom:null,
+			// 音乐容器
+			songs:[],
+			// 音乐播放器起始位置
+			index:0,
+			// 初始化
+			init:function(){
+				// 创建一个音乐播放器
+				this.audioDom = document.createElement("audio");
+			},
+			// 添加音乐
+			add:function(src){
+				// 将音乐放入音乐容器中
+				this.songs.push(src);
+				// 初始化播放第一首音乐
+				this.audioDom.src = this.songs[this.index];
+			},
+			// 初始化播放音乐
+			play:function(){
+				this.audioDom.play();
+			},
+			// 暂停音乐
+			stop:function(){
+				this.audioDom.pause();
+			},
+			// 时间控制
+			time:function(callback){
+				var $this = this;
+				// oncanplaythrough 音乐播放的内置方法
+				$this.audioDom.oncanplaythrough = function(){
+					// 获取音乐的总时长
+					var totalTime = this.duration;
+					//格式化时长
+					var timer = $this.formateTime(totalTime);
+					//定义返回
+					if(callback){
+						var json = {
+							duration:totalTime,
+							time:timer
+						};
+						callback.call(json);
+					}
+				}
+			},
+			// 格式化时间公式
+			formateTime:function(time){
+				// 获取一首歌曲的分钟和秒数
+				var m = parseInt(time/60);
+				var s = parseInt(time%60);
+				// 将时长写成00:00的格式并返回
+				var time = (m<10?("0"+m):m)+":"+(s<10?("0"+s):s);
+				return time;
+			},
+			// 静音
+			sound:function(){
+				
+			},
+			// 播放条进度百分比
+			percent:function(callback){
+				var $this = this;
+				// ontimeupdate 音乐播放的内置方法
+				$this.audioDom.ontimeupdate=function(){
+					//计算播放中的时间进度  (currentTime已播放时长)    (duration总时长)
+					var per = Math.floor((this.currentTime/this.duration)*100);
+					//用总时长减去播放去时长获取剩余的时间
+					var stime = this.duration - this.currentTime;
+					//格式化时间
+					var timer = $this.formateTime(stime);
+					var stimer = $this.formateTime(this.currentTime);
+					//定义返回
+					var json = {
+						per:per,
+						time:timer,
+						stime:stimer
+					};
+					if(callback)callback.call(json);
+				}
+			},
+			// 用于上、下曲播放音乐
+			playMusic:function(){
+				// 从音乐数组中取一首进行播放
+				this.audioDom.src = this.songs[this.index];
+				// 播放音乐
+				this.audioDom.play();
+			},
+			// 上一首
+			prev:function(){
+				if(this.index>0){
+					this.index--;
+				}else{
+					this.index = this.songs.length - 1;
+				}
+				this.playMusic();
+			},
+			// 下一首
+			next:function(){
+				if(this.index<this.songs.length-1){
+					this.index++;
+				}else{
+					this.index = 0;
+				}
+				this.playMusic();
+			}
+		}
+
+
+
+		window.onload = function(){
+			// 初始化
+			tzAudio.init();
+			// 添加音乐
+			tzAudio.add("mp3/01.mp3");
+			tzAudio.add("mp3/02.mp3");
+			tzAudio.add("mp3/03.mp3");
+			tzAudio.add("mp3/04.mp3");
+			tzAudio.add("mp3/05.mp3");
+			// 获取当前播放音乐总时长并展示
+			tzAudio.time(function(){
+				document.getElementById("time").innerHTML = this.time;
+			});
+			// 获取当前音乐已播放时长和剩余时长并展示，播放进度条随播放时长而改变
+			tzAudio.percent(function(){
+				document.getElementById("percent").style.width = this.per+"%";	
+				document.getElementById("stime").innerHTML = this.time;	
+				document.getElementById("sstime").innerHTML = this.stime;	
+			});
+
+		}
+		function playstop(obj){
+			var text = obj.innerHTML;
+			if(text == "播放"){
+				tzAudio.play();
+				obj.innerHTML = "暂停";
+			}else if(text == "暂停"){
+				tzAudio.stop();
+				obj.innerHTML = "播放";
+			}
+		}
+	</script>
+</body>
+</html>
