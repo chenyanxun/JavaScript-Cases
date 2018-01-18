@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>全屏滚动</title>
+	<link rel="stylesheet" href="css/javascript.fullPage.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<ul id="menu">
+		<li data-menuanchor="firstPage"><a href="#firstPage">First slide</a></li>
+		<li data-menuanchor="secondPage"><a href="#secondPage">Second slide</a></li>
+		<li data-menuanchor="3rdPage"><a href="#3rdPage">Third slide</a></li>
+		<li data-menuanchor="4thpage"><a href="#4thpage">Fourth slide</a></li>
+	</ul>
+
+	<div id="fullpage">
+		<div class="section section1">
+			<h1>fullpage.js</h1>
+			<p>Create Beautiful Fullscreen Scrolling Websites</p>
+			<img src="img/fullPage.png" alt="">
+		</div>
+		<div class="section section2">
+			<div class="slide">
+				<h1>Create Sliders</h1>
+				<p>Not only vertical scrolling but also horizontal scrolling. With fullPage.js you will be able to add horizontal sliders in the most simple way ever.</p>
+				<img src="img/slider.png" alt="slider" />
+			</div>
+			<div class="slide">
+				<div class="intro">
+					<img src="img/1.png" alt="simple" />
+					<h1>Simple</h1>
+					<p>Easy to use. Configurable and customizable.</p>
+				</div>
+			</div>
+			<div class="slide">
+				<div class="intro">
+					<img src="img/2.png" alt="Cool" />
+					<h1>Cool</h1>
+					<p>It just looks cool. Impress everybody with a simple and modern web design!</p>
+				</div>
+			</div>
+			<div class="slide">
+				<div class="intro">
+					<img src="img/3.png" alt="Compatible" />
+					<h1>Compatible</h1>
+					<p>Working in modern and old browsers too! IE 8 users don't have the fault of using that horrible browser! Lets give them a chance to see your site in a proper way!</p>
+				</div>
+			</div>
+		</div>
+		<div class="section section3">
+			<div class="intro">
+				<h1 class="title3">Easy to use plugin</h1>
+				<p class="text3">HTML markup example to define 4 sections.</p>
+				<img src="img/example2.png" alt="example" />
+			</div>
+		</div>
+		<div class="section section4">
+			<div class="intro">
+				<h1 class="title4">Working On Tablets</h1>
+				<p class="text4">
+					Designed to fit to different screen sizes as well as tablet and mobile devices.
+				</p>
+				<br /><br /><br /><br /><br /><br />
+			</div>
+			<img src="img/tablets.png" alt="tablets" />
+		</div>
+	</div>
+
+
+	<script src="js/jquery-1.11.2.min.js"></script>
+	<script src="js/jquery.fullpage.js"></script>
+	<script type="text/javascript" src="js/move.min.js"></script>
+	<script>
+		$('#fullpage').fullpage({
+			anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage'],
+  			sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', 'whitesmoke',],
+			menu: '#menu',
+			scrollingSpeed: 700,
+			afterLoad:function(anchorLink, index){
+				var leavingSection = $(this);
+				if(index == 3){
+					move(".title3").set("left","0").duration('.5s').end(function(){
+						move(".text3").scale(3, 3).end(function(){
+							move(".text3").scale(1, 1).end();
+						});
+					});
+				}
+				if(index == 4){
+					move(".title4").set("right","0").duration('.5s').end(function(){
+						move(".text4").rotate(360).end(function(){
+							move(".text4").rotate(-360).end();
+						});
+					});
+				}
+			},
+			onLeave:function(index, nextIndex, direction){
+				var leavingSection = $(this);
+				if(index == 3){
+					move(".title3").set("left","-100%").duration('.5s').end();
+				}
+				if(index == 4){
+					move(".title4").set("right","-100%").duration('.5s').end();
+				}
+			}
+		});
+		
+	</script>	
+</body>
+</html>
