@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>新手引导效果</title>
+	<link rel="stylesheet" href="css/public.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div id="mask"></div>
+	<div class="tipbox">
+		<div class="tip tip1">
+			<a href="javascript:void(0);" title=""></a>
+			<span></span>
+		</div>
+		<div class="tip tip2">
+			<a href="javascript:void(0);" title=""></a>
+			<span></span>
+		</div>
+		<div class="tip tip3">
+			<a href="javascript:void(0);" title=""></a>
+			<span></span>
+		</div>
+		<div class="tip tip4">
+			<a href="javascript:void(0);" title=""></a>
+			<span></span>
+		</div>
+		<div class="tip tip5">
+			<span></span>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 获取cookie 
+		var res = document.cookie.substring(5);
+		alert(res);
+		if(!res){
+			var tips = document.querySelectorAll(".tip");
+			var mask = document.getElementById("mask");
+			var len = tips.length;
+			tips[0].style.display = "block";
+			for(var i=0;i<len;i++){
+				var index = i;
+				tips[index].getElementsByTagName("span")[0].onclick = function(){
+					this.parentNode.style.display = "none";
+					if(!this.parentNode.nextElementSibling){
+						mask.style.display = "none";
+					}else{
+						this.parentNode.nextElementSibling.style.display = "block";
+					}
+				}
+			}
+
+			for(var i=0;i<len;i++){
+				var index = i;
+				tips[index].getElementsByTagName("a")[0].onclick = function(){
+					mask.style.display = "none";
+					this.parentNode.style.display = "none";
+				}
+			}
+			// 设置cookie
+			var time = new Date();
+			time.setDate(time.getDate()+30);
+			document.cookie="name=www.open.com.cn;expires="+time;
+		}else{
+			alert(res);
+		}
+		
+	</script>
+</body>
+</html>
