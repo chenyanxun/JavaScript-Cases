@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>搜索框效果--jQuery</title>
+    <link rel="stylesheet" href="../public/normalize.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="body"></div>
+    <div class="search_box">
+        <div class="logo"></div>
+        <div class="search">
+            <input type="text" class="search_input" autocomplete="off">
+            <a href="javascript:void(0);" class="search_btn"><i class="iconfont">&#xe60f;</i></a>
+            <ul class="search_result"></ul>
+        </div>
+    </div>
+    
+
+    <script src="../public/jquery-3.3.1.min.js"></script>
+    <script>
+        $(".search_input").on("keyup", function () {
+            var search_text = $(this).val();
+            $.ajax({
+                type:'get',                  
+                url:'http://api.bing.com/qsonhs.aspx?type=cb&q='+search_text,                 
+                async:true,                  
+                dataType:"jsonp",                
+                jsonp:'cb',         
+                success:function(data){  //成功的回调函数
+                    var data = data.AS.Results[0].Suggests; 
+                    var html = "";
+                    for(var i=0;i<data.length;i++){
+                        html += "<li>"+data[i].Txt+"</li>";
+                    }
+                    $(".search_result").html(html);
+                    $(".search_result").show();
+                },
+                error: function (e) {
+                    alert("error");
+                }
+            });
+        });
+        $(document).on("click",function(){
+            $(".search_result").hide();
+        });
+        // 事件代理
+        $(".search_result").on("click","li",function(){
+            var text = $(this).text();
+            location.href = 'http://cn.bing.com/search?q='+text;
+        });
+    </script>
+</body>
+
+</html>

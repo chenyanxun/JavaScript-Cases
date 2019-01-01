@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>搜索框效果--js</title>
+    <link rel="stylesheet" href="../public/normalize.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="body"></div>
+    <div class="search_box">
+        <div class="logo"></div>
+        <div class="search">
+            <input type="text" class="search_input" autocomplete="off">
+            <a href="javascript:void(0);" class="search_btn"><i class="iconfont">&#xe60f;</i></a>
+            <ul class="search_result"></ul>
+        </div>
+    </div>
+
+    <script>
+        // 封装事件方法
+        var addEvent = function (el, event, fn) {
+            if (el.addEventListener) { // 非IE浏览器绑定事件
+                el.addEventListener(event, fn, false);
+            } else if (el.attachEvent) { // IE浏览器绑定事件
+                el.attachEvent('on' + event, fn);
+            }
+        }
+        // 封装原生ajax方法
+        var ajaxGet = function (url, callback) {
+            var _xhr = null;
+            if (window.XMLHttpRequest) { // 非IE请求
+                _xhr = new window.XMLHttpRequest();
+            } else if (window.ActiveXObject) { // IE请求
+                _xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            }
+            _xhr.onreadstatechange = function () {
+                if (_xhr.readyState == 4 && _xhr.status == 200) {
+                    callback(JSON.parse(_xhr.responseText));
+                }
+            }
+            _xhr.open('get', url, false);
+            _xhr.send(null);
+        }
+        // 封装事件代理方法
+        var delegateEvent = function(target,event,fn){
+            addEvent(document,event,function(e){
+                if(e.target.nodeName == target.toUpperCase()){
+                    fn.call(e.target);
+                }
+            });
+        }
+
+
+        var inputDom = document.querySelector(".search_input");
+        var resultDom = document.querySelector(".search_result");
+        addEvent(inputDom, 'keyup', function () {
+            var search_text = inputDom.value;
+            // 跨域问题
+            var url = "http://api.bing.com/qsonhs.aspx?type=cb&cb=jsonpcallback&q=" + search_text;
+            var script = document.createElement('script');
+            script.setAttribute('src', url);
+            // 把script标签加入body，此时调用开始        
+            document.getElementsByTagName('body')[0].appendChild(script);
+        })
+        // 请求返回结果
+        function jsonpcallback(data) {
+            var data = data.AS.Results[0].Suggests;
+            var html = "";
+            console.log(data);
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html += "<li>" + data[i].Txt + "</li>"
+            }
+            resultDom.innerHTML = html;
+            resultDom.style.display = "block";
+        };
+        delegateEvent('li','click',function(){
+            var keyword = this.innerHTML;
+            location.href = 'http://cn.bing.com/search?q='+keyword;
+        });
+
+    </script>
+</body>
+
+</html>
