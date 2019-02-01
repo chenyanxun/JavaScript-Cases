@@ -360,6 +360,10 @@
   ul li {
       list-style: none;
   }
+  img {
+      outline: none;
+      border:none;
+  }
 
 
 
