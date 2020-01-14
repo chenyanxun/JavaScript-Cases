@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>animation动画</title>
+    <style>
+        .box {
+            width:100px;
+            height: 100px;
+            background:pink;
+            animation: move 2s linear 1s 3 normal;
+        }
+        @keyframes move {
+            50% {
+                width:200px;
+                height:200px;
+            }
+            100% {
+                width:300px;
+                height:300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>animation</h2>
+    <p>6个属性值，配合keyframes使用</p>
+    <p>animation-name：规定需要绑定到选择器的 keyframe 名称</p>
+    <p>animation-duration：规定完成动画所花费的时间，以秒或毫秒计。必须带单位，0也要有单位</p>
+    <p>animation-timing-function：规定动画的速度曲线。</p>
+    <p>animation-delay：规定在动画开始之前的延迟。</p>
+    <p>animation-iteration-count：规定动画应该播放的次数。n | infinite</p>
+    <p>animation-direction：规定是否应该轮流反向播放动画。normal | alternate</p>
+    <div class="box"></div>
+</body>
+</html>

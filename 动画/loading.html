@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>等待中 -- 非线性函数steps()</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background: url("./img/loading.png") no-repeat;
+            animation: loading 1s steps(24) 5;
+        }
+
+        @keyframes loading {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        let $loading = document.querySelector(".box");
+        $loading.addEventListener("animationstart", function () {
+            console.log("动画开始");
+        })
+        // 动画重复运动时事件
+        $loading.addEventListener("animationiteration", function () {
+            console.log("动画重复运动");
+        })
+        // 动画结束时事件
+        $loading.addEventListener("animationend", function () {
+            console.log("动画结束");
+        })
+    </script>
+</body>
+
+</html>

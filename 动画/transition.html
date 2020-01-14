@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transition动画</title>
+    <style>
+        .box {
+            width:100px;
+            height: 100px;
+            background:pink;
+            transition: width 2s linear 0s;
+        }
+        .box:hover {
+            width:200px;
+        }
+    </style>
+</head>
+<body>
+    <h2>transition</h2>
+    <p>4个属性值，配合transform使用效果多一些</p>
+    <p>transition-property：规定设置过渡效果的 CSS 属性的名称，即元素将要改变的属性，如width、height等</p>
+    <p>transition-duration：规定完成过渡效果需要多少秒或毫秒，做完动画动作需要的时间,必须带有单位s或ms</p>
+    <p>transition-timing-function：规定速度效果的速度曲线，linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n)</p>
+    <p>transition-delay：定义过渡效果何时开始，设定动画开始时间，必须带有单位s或ms</p>
+    <div class="box"></div>
+</body>
+</html>
