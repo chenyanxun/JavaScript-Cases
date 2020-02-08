@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽弹窗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html,body {
+            background:pink;
+        }
+        .box {
+            width: 380px;
+            height: auto;
+            overflow: hidden;
+            border:1px solid #ccc;
+            background:#fff;
+            position: absolute;
+            left:100px;
+            top:100px;
+            z-index:999;
+            display: none;
+        }
+        .title {
+            padding:0 20px;
+            height: 50px;
+            line-height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            background:orange;
+        }
+        .content {
+            height: 200px;
+            background:#fff;
+        }
+        .mask {
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.6);
+            position: fixed;
+            top:0;
+            left:0;
+            z-index:100;
+            display: none;
+        }
+        .login {
+            font-size: 30px;
+            margin:100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="title">
+            <span>登录弹窗</span>
+            <a href="javascript:void(0);" class="close">关闭</a>
+        </div>
+        <div class="content"></div>
+    </div>
+    <div class="mask"></div>
+    <a href="javascript:void(0);" class="login">登录</a>
+
+    <script>
+        // 获取元素
+        function $(className){
+            return document.querySelector(className);
+        }
+
+        // 弹窗居中
+        function autoCenter(el){
+            // 视窗宽高
+            const clientW = document.documentElement.clientWidth;
+            const clientH = document.documentElement.clientHeight;
+            // 弹窗宽高
+            const elW = el.offsetWidth;
+            const elH = el.offsetHeight;
+            // 居中
+            el.style.left = (clientW-elW)/2 + "px";
+            el.style.top = (clientH-elH)/2 + "px";
+        }
+        let mouseOffsetX = 0; // 偏移 
+        let mouseOffsetY = 0;
+        let isDraging = false; // 是否可拖拽
+
+        // 鼠标事件1 -- 按下
+        $(".title").addEventListener("mousedown",function(e){
+            var e = e || window.event;
+            mouseOffsetX = e.pageX - $(".box").offsetLeft; // 鼠标点在标题栏上的位置
+            mouseOffsetY = e.pageY - $(".box").offsetTop;
+            isDraging = true;
+        })
+
+        // 鼠标事件2 -- 移动
+        document.onmousemove = function(e){
+            var e = e || window.event;
+            let mouseX = e.pageX; // 鼠标移动后的位置
+            let mouseY = e.pageY;
+            let moveX = 0; // 弹窗相对位置
+            let moveY =  0;
+            if(isDraging === true){
+                moveX = mouseX - mouseOffsetX; 
+                moveY =  mouseY - mouseOffsetY;
+                // 限定移动范围
+                // moveX > 0 并且 moveX < (视窗宽度 - 弹窗宽度)
+                // moveY > 0 并且 moveY < (视窗高度 - 弹窗高度)
+                const clientW = document.documentElement.clientWidth;
+                const clientH = document.documentElement.clientHeight;
+                const elW = $(".box").offsetWidth;
+                const elH = $(".box").offsetHeight;
+                const maxX = clientW - elW;
+                const maxY = clientH - elH;
+                moveX = Math.min(maxX,Math.max(0,moveX));
+                moveY = Math.min(maxY,Math.max(0,moveY));
+                $(".box").style.left = moveX + "px";
+                $(".box").style.top = moveY + "px";
+            }
+        }
+        // 鼠标事件3 -- 松开
+        document.onmouseup = function(){
+            isDraging = false;
+        }
+
+        // 点击登录显示弹窗
+        $(".login").onclick = function(){
+            $(".mask").style.display = "block";
+            $(".box").style.display = "block";
+            autoCenter($(".box"));
+        }
+        // 关闭
+        $(".close").onclick = function(){
+            $(".mask").style.display = "none";
+            $(".box").style.display = "none";
+        }
+        // 窗口改变自动居中
+        window.onresize = function(){
+            autoCenter($(".box"));
+        }
+    </script>
+</body>
+</html>
