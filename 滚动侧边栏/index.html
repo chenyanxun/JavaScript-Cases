@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动侧边栏</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        .left {
+            width:60%;
+            height:4000px;
+            background: pink;
+            float:left;
+        }
+        .right {
+            width:200px;
+            height: 400px;
+            background:orange;
+            float:right;
+        }
+    </style>
+</head>
+<body>
+    <div class="left" id="left"></div>
+    <div class="right" id="right"></div>
+
+    <script>
+        // 获取元素
+        var $ = function(id){
+            return document.getElementById(id);
+        }
+
+        // 监听事件
+        var addEvent = function(obj,event,fn){
+            if(obj.addEventListener){ // 非IE
+                obj.addEventListener(event,fn,false);
+            }else if(obj.attachEvent){ // IE
+                obj.attachEvent("on"+event,fn);
+            }
+        }
+        document.querySelector
+        // 
+        var domSider = $("right");
+        addEvent(window,"scroll",function(){
+            var sideHeight = domSider.offsetHeight;
+            var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
+            if(scrollHeight + screenHeight > sideHeight){
+                domSider.style.cssText = 'position:fixed;right:0px;top:'+(-(sideHeight-screenHeight))+'px';
+            } else {
+                domSider.style.position = 'static';
+            }
+        })
+
+
+    </script>
+</body>
+</html>
